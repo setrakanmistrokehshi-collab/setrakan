@@ -1,0 +1,65 @@
+
+#contact {
+  padding: 80px 10%;
+  text-align: center;
+  background:#004d40;
+}
+#contact h2{
+  color: #fff;
+}
+#contact h2:hover{
+  color: orchid;
+}
+#contact form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 500px;
+  margin: auto;
+}
+
+#contact input,
+#contact textarea {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 100%;
+}
+#contact .btn {
+  background: #6c788a;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 25px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+#contact .btn:hover {
+  background: #e67e22;
+}
+
+/* Footer */
+footer {
+  background:#465368;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+  background: rgba(10, 15, 30, 0.98);
+    backdrop-filter: blur(16px);
+    flex-direction: column;
+}
+
+footer .socials {
+  margin-top: 10px;
+}
+
+footer .socials a {
+  color: #fff;
+  margin: 0 8px;
+  font-size: 18px;
+  transition: color 0.3s;
+}
+
+footer .socials a:hover {
+  color: #ff9800;
+}

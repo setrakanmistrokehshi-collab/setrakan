@@ -1,0 +1,103 @@
+/* src/components/Hero.css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.hero-wrapper {
+  height: 70vh;          /* increased from 50vh for better impact */
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-swiper {
+  height: 100%;
+  width: 100%;
+}
+
+.hero-slide {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;     /* important: covers the area nicely */
+  object-position: center;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;              /* top,right,bottom,left: 0 */
+  background: rgba(0, 0, 0, 0.45); /* semi-dark overlay for text readability */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1.5rem;
+  color: white;
+}
+
+.hero-overlay h1 {
+  color: aqua;
+  font-size: clamp(2.5rem, 8vw, 4.5rem); /* responsive scaling */
+  margin-bottom: 1rem;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+}
+
+.hero-overlay h2 {
+  color: white;
+  font-size: clamp(1.2rem, 4vw, 1.8rem);
+  margin-bottom: 2rem;
+  max-width: 90%;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.7);
+}
+
+.hero-overlay button {
+  border: 2px solid aqua;
+  padding: 0.9rem 2.2rem;
+  border-radius: 50px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: aqua;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.hero-overlay button:hover {
+  background-color: aqua;
+  color: black;
+  transform: translateY(-3px);
+}
+
+/* Pagination dots styling */
+.hero-swiper .swiper-pagination-bullet {
+  background: white;
+  opacity: 0.6;
+}
+
+.hero-swiper .swiper-pagination-bullet-active {
+  background: aqua;
+  opacity: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .hero-wrapper {
+    height: 60vh;
+  }
+
+  .hero-overlay h1 {
+    font-size: clamp(2rem, 7vw, 3.5rem);
+  }
+
+  .hero-overlay h2 {
+    font-size: clamp(1rem, 3.5vw, 1.4rem);
+  }
+}

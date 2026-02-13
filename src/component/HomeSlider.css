@@ -1,0 +1,84 @@
+/* src/components/HomeSlider.css */
+.slider-section {
+  padding: 4rem 1rem;
+  background: #f8f9fa; /* light bg – change as needed */
+}
+
+.mySwiper {
+  padding-bottom: 3rem; /* space for pagination dots */
+}
+
+.slide-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 320px; /* fixed height – adjust to your preference */
+  background: #fff;
+}
+
+.slide-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+.slide-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.slide-card:hover .slide-image {
+  transform: scale(1.08);
+}
+
+.slide-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.5rem;
+  background: linear-gradient(to top, rgba(0,0,0,0.75), transparent);
+  color: white;
+}
+
+.slide-overlay h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.4rem;
+}
+
+.slide-overlay p {
+  margin: 0;
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+/* Pagination styling (optional) */
+.swiper-pagination-bullet {
+  background: #666;
+  opacity: 0.5;
+}
+
+.swiper-pagination-bullet-active {
+  background: #0066ff;
+  opacity: 1;
+}
+
+/* Navigation arrows (optional custom look) */
+.swiper-button-next,
+.swiper-button-prev {
+  color: #0066ff !important;
+}
+
+/* Mobile adjustments */
+@media (max-width: 640px) {
+  .slide-card {
+    height: 280px;
+  }
+
+  .slide-overlay h3 {
+    font-size: 1.2rem;
+  }
+}

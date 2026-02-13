@@ -1,0 +1,51 @@
+*{
+    margin: 0%;
+    padding: 0%;
+    width: 100%;
+}
+
+.Container{
+    display: flex;
+    padding: 40px;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    background-color: white;
+    border-radius: 20px;
+    flex-basis: 1px;
+    flex-shrink: 2px;
+    flex-grow: 2px;
+    padding: 20px;
+
+}
+
+.Container1 {
+padding: 40px;
+background-color: green;
+width: 30vh;
+border-radius: 30px;
+height: 30vh;
+}
+
+.Container2 {
+padding: 40px;
+background-color: green;
+width: 30vh;
+border-radius: 30px;
+height: 30vh;
+}
+
+.Container3 {
+padding: 40px;
+width: 30vh;
+background-color: green;
+border-radius: 30px;
+height: 30vh;
+}
+
+.Container4 {
+padding: 40px;
+width: 30vh;
+background-color: green;
+border-radius: 30px;
+height: 30vh;
+}
