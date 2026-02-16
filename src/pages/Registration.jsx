@@ -28,7 +28,7 @@ const RegistrationScreen = () => {
         setLoading(true)
         try{
             const data =await 
-            axios.post("https://fullstack-student-backend.onrender.com/api/auth", formData)
+            axios.post("https://students-learning-api.onrender.com/api/auth", formData)
                console.log(data)
                navigate("/")
         } catch (error){

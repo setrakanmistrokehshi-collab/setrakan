@@ -8,7 +8,7 @@ import Registration from "../src/pages/Registration"
 import UserList from "./pages/UserList"
 import GetUser from "./pages/GetUser"
 import EditUser from "./pages/EditUser"
-import Hotel from "./pages/Hotel.jsx";
+import Hotel from "./pages/product.jsx";
 import Footer from "./component/Footer.jsx"
 
 
@@ -26,7 +26,7 @@ const App = () => {
         <Route path ="/User" element={<UserList />} />
          <Route path ="/GetUser/:id" element={<GetUser />} />
           <Route path ="/EditUser/edit/:id" element={<EditUser />} />
-           <Route path ="/hotels" element={<Hotel/>} />
+           <Route path ="/product" element={<products/>} />
         
       </Routes> 
       <Footer/>

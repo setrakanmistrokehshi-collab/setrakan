@@ -24,6 +24,12 @@ export default function Navbar() {
           <Link to="/about" onClick={closeMenu}>About</Link>
           <Link to="/services" onClick={closeMenu}>Services</Link>
           <Link to="/contact" onClick={closeMenu}>Contact</Link>
+          <Link to="/register" onClick={closeMenu}>Register</Link>
+          <Link to="/login" onClick={closeMenu}>Login</Link>
+          <Link to="/user" onClick={closeMenu}>userList</Link>
+          <Link to="/GetUser/:id" onClick={closeMenu}>GetUser</Link>
+          <Link to="/EditUser/edit/:id" onClick={closeMenu}>EditUser</Link>
+          <Link to="/product" onClick={closeMenu}>Products</Link>
         </nav>
 
         {/* Hamburger – always last in flex, appears only on mobile */}
@@ -44,6 +50,12 @@ export default function Navbar() {
           <Link to="/about" onClick={closeMenu}>About</Link>
           <Link to="/services" onClick={closeMenu}>Services</Link>
           <Link to="/contact" onClick={closeMenu}>Contact</Link>
+          <Link to="/register" onClick={closeMenu}>Register</Link>
+          <Link to="/login" onClick={closeMenu}>Login</Link>
+          <Link to="/user" onClick={closeMenu}>userList</Link>
+          <Link to="/GetUser/:id" onClick={closeMenu}>GetUser</Link>
+          <Link to="/EditUser/edit/:id" onClick={closeMenu}>EditUser</Link>
+          <Link to="/product" onClick={closeMenu}>Products</Link>
         </nav>
       </div>
     </header>

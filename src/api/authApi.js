@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = await axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
+  baseURL: import.meta.env.VITE_BASE_URL,
 });
 
 // Attach token automatically
@@ -30,11 +30,11 @@ export const loginUser = (formData) =>
 
 
 // GET ALL USERS (protected)
-export const getAllUsers = () =>
-  API.get("/");
-
-
-
+export const getUser = () =>
+  API.get("/user", { withCredentials: true });
+// UPDATE USER (protected)
+export const updateUser = (id, payload) =>
+  API.put(`/user/${id}`, payload, { withCredentials: true });
 
 export const deleteUser =  (id) => 
-  API.delete("/"+id);
+  API.delete(`/user/${id}`, { withCredentials: true });
