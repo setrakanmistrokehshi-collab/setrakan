@@ -32,9 +32,12 @@ import SchoolIcon from "@mui/icons-material/School";
 import EventIcon from "@mui/icons-material/Event";
 import WifiIcon from "@mui/icons-material/Wifi";
 import LocalCafeIcon from "@mui/icons-material/LocalCafe";
+import {useNavigate } from "react-router-dom";
 
 // Fallback for image errors
 function ImageWithFallback({ src, alt, sx }) {
+  const navigate = useNavigate();
+  
   const [imgSrc, setImgSrc] = useState(src);
   const fallback = "https://via.placeholder.com/800x450?text=Setrakan+Tech+Hub";
   return (
@@ -135,16 +138,18 @@ const featureIcons = {
   "Project-Based": <CodeIcon fontSize="small" />,
 };
 
-export default function ServicesPage({ onNavigate = () => {} }) {
+export default function Product() {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [priceRange, setPriceRange] = useState([0, 3000000]);
   const [sortBy, setSortBy] = useState("popular");
   const [showFilters, setShowFilters] = useState(false);
 
+
   // Replace with your real contacts
-  const whatsappNumber = "2348012345678";
-  const email = "info@setrakan.com";
+  const whatsappNumber = "+2348136764568";
+  const email = "setrakanmistrokehshi@gmail.com";
 
   const filteredServices = useMemo(() => {
     return allServices.filter((service) => {
@@ -187,63 +192,63 @@ export default function ServicesPage({ onNavigate = () => {} }) {
   };
 
   return (
+    <>
     <Box sx={{ minHeight: "100vh", backgroundColor: "#f7fafc" }}>
       {/* Header */}
       <Box sx={{ backgroundColor: "#fff", borderBottom: "1px solid rgba(0,0,0,0.08)" }}>
         <Box sx={{ maxWidth: 1280, mx: "auto", px: 3, py: 3 }}>
           <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2 }}>
-            <Button startIcon={<ArrowBackIcon />} variant="text" onClick={() => onNavigate("home")}>
-              Back to Home
-            </Button>
+            <Button startIcon={<ArrowBackIcon />} variant="text"
+              onClick={() => navigate("/Home")}>
+            Back to Home
+          </Button>
+        </Box>
+
+
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", lg: "row" },
+            alignItems: { lg: "center" },
+            justifyContent: "space-between",
+            gap: 2,
+          }}
+        >
+          <Box>
+            <Typography variant="h4" fontWeight={700}>
+              Setrakan Tech Hub 
+            </Typography>
+            <Typography variant="body1" color="text.secondary" sx={{ mt: 1 }}>
+              {sortedServices.length} services available • Co-working, Training, Incubation & More in Lagos
+            </Typography>
           </Box>
 
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: { xs: "column", lg: "row" },
-              alignItems: { lg: "center" },
-              justifyContent: "space-between",
-              gap: 2,
-            }}
-          >
-            <Box>
-              <Typography variant="h4" fontWeight={700}>
-                Setrakan Tech Hub Services
-              </Typography>
-              <Typography variant="body1" color="text.secondary" sx={{ mt: 1 }}>
-                {sortedServices.length} services available • Co-working, Training, Incubation & More in Lagos
-              </Typography>
-            </Box>
-
-            <Box sx={{ display: "flex", gap: 2, mt: { xs: 2, lg: 0 }, alignItems: "center" }}>
-              <TextField
-                placeholder="Search services..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                size="small"
-                sx={{ width: 320 }}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <SearchIcon />
-                    </InputAdornment>
-                  ),
-                }}
-              />
-              <Button
-                variant="outlined"
-                startIcon={<FilterListIcon />}
-                onClick={() => setShowFilters((s) => !s)}
-                sx={{ display: { lg: "none" } }}
-              >
-                Filters
-              </Button>
-            </Box>
+          <Box sx={{ display: "flex", gap: 2, mt: { xs: 2, lg: 0 }, alignItems: "center" }}>
+            <TextField
+              placeholder="Search services..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              size="small"
+              sx={{ width: 320 }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon />
+                  </InputAdornment>
+                ),
+              }} />
+            <Button
+              variant="outlined"
+              startIcon={<FilterListIcon />}
+              onClick={() => setShowFilters((s) => !s)}
+              sx={{ display: { lg: "none" } }}
+            >
+              Filters
+            </Button>
           </Box>
         </Box>
       </Box>
-
-      <Box sx={{ maxWidth: 1280, mx: "auto", px: 3, py: 4 }}>
+    </Box><Box sx={{ maxWidth: 1280, mx: "auto", px: 3, py: 4 }}>
         <Grid container spacing={3}>
           {/* Filters Sidebar */}
           <Grid item xs={12} lg={3} sx={{ display: { xs: showFilters ? "block" : "none", lg: "block" } }}>
@@ -268,13 +273,12 @@ export default function ServicesPage({ onNavigate = () => {} }) {
                 </Typography>
                 <Slider
                   value={priceRange}
-                  onChange={(e, newVal) => setPriceRange(newVal)}
+                  onChange={(_e, newVal) => setPriceRange(newVal)}
                   min={0}
                   max={3000000}
                   step={10000}
                   valueLabelDisplay="auto"
-                  valueLabelFormat={(v) => `₦${v.toLocaleString()}`}
-                />
+                  valueLabelFormat={(v) => `₦${v.toLocaleString()}`} />
               </Box>
 
               <Button variant="outlined" fullWidth onClick={resetFilters}>
@@ -306,8 +310,7 @@ export default function ServicesPage({ onNavigate = () => {} }) {
                     <ImageWithFallback
                       src={service.image}
                       alt={service.name}
-                      sx={{ height: 220, objectFit: "cover" }}
-                    />
+                      sx={{ height: 220, objectFit: "cover" }} />
                     <CardContent sx={{ flexGrow: 1 }}>
                       <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "start", mb: 1 }}>
                         <Box>
@@ -328,8 +331,7 @@ export default function ServicesPage({ onNavigate = () => {} }) {
                             label={feature}
                             size="small"
                             icon={featureIcons[feature] || null}
-                            sx={{ bgcolor: "#e3f2fd" }}
-                          />
+                            sx={{ bgcolor: "#e3f2fd" }} />
                         ))}
                         {service.features.length > 5 && (
                           <Typography variant="caption" color="text.secondary" sx={{ alignSelf: "center" }}>
@@ -377,19 +379,20 @@ export default function ServicesPage({ onNavigate = () => {} }) {
               ))}
             </Grid>
 
-              {sortedServices.length === 0 && (
-                <Box sx={{ textAlign: "center", py: 8 }}>
-                  <Typography variant="h6" color="text.secondary">
-                    No services found matching your criteria
-                  </Typography>
-                  <Button variant="outlined" sx={{ mt: 2 }} onClick={resetFilters}>
-                    Clear Filters
-                  </Button>
-                </Box>
-              )}
+            {sortedServices.length === 0 && (
+              <Box sx={{ textAlign: "center", py: 8 }}>
+                <Typography variant="h6" color="text.secondary">
+                  No services found matching your criteria
+                </Typography>
+                <Button variant="outlined" sx={{ mt: 2 }} onClick={resetFilters}>
+                  Clear Filters
+                </Button>
+              </Box>
+            )}                
             </Grid>
-          </Grid>
+            </Grid>
+          </Box>
         </Box>
-      </Box>
+       </>
       );
     }
