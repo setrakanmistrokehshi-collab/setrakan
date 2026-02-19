@@ -15,7 +15,7 @@ import Services from "./pages/Services.jsx"
 const App = () => {
   return (
     <>
-   <Nav/>
+       <Nav/>
    
      <Routes>
 
