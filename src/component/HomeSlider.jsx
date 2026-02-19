@@ -42,7 +42,7 @@ const HomeSlider = () => {
   return (
     <section className="slider-section">
       <Swiper
-        modules={[Navigation, Pagination /* Autoplay */]}
+        modules={[Navigation, Pagination , Autoplay ]}
         spaceBetween={24}
         slidesPerView={1}
         navigation
@@ -62,7 +62,7 @@ const HomeSlider = () => {
               <img
                 src={slide.image}
                 alt={slide.title}
-                loading="lazy"
+                loading="eager"
                 className="slide-image"
               />
               <div className="slide-overlay">

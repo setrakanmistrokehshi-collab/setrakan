@@ -1,189 +1,321 @@
-import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useState, useEffect, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {
   Box,
-  Paper,
+  Container,
   Typography,
-  TextField,
   Button,
-  Alert,
+  TextField,
+  InputAdornment,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  IconButton,
   CircularProgress,
+  Alert,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  Avatar,
+  TablePagination,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Stack,
 } from "@mui/material";
 
-const UpdateUser = () => {
+import SearchIcon from "@mui/icons-material/Search";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import AddIcon from "@mui/icons-material/Add";
+import DownloadIcon from "@mui/icons-material/Download";
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import Brightness7Icon from "@mui/icons-material/Brightness7";
+
+const UsersList = () => {
   const navigate = useNavigate();
-  const { id } = useParams();
 
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [pageLoading, setPageLoading] = useState(true);
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(false);
 
-  const BASE_URL_URL = import.meta.env.VITE_BASE_URL;
+  const [searchTerm, setSearchTerm] = useState("");
+  const [appliedSearch, setAppliedSearch] = useState("");
+  const [sortBy, setSortBy] = useState("newest");
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
-  // 1. Load current user data when component mounts
+  const [deleteDialog, setDeleteDialog] = useState({ open: false, userId: null, userName: "" });
+  const [viewUser, setViewUser] = useState();
+  const [isDarkMode, setIsDarkMode] = useState(() => localStorage.getItem("darkMode") === "true");
+
+  const api = import.meta.env.VITE_API_URL ;
+
+  // Dark Mode
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        // Try these endpoints one by one — use the one that works for your backend
-        // Option A: Most common pattern
-        // const res = await axios.get(`${BASE_URL}/api/auth/${id}`);
-        
-        // Option B: If your edit route supports GET
-        const res = await axios.get(`${BASE_URL_URL}/auth/edit/${id}`);
-        
-        // Option C: If it's /users or something else
-        // const res = await axios.get(`${BASE_URL}/users/${id}`);
+    if (isDarkMode) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("darkMode", "true");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("darkMode", "false");
+    }
+  }, [isDarkMode]);
 
-        const user = res.data;
-        setFirstName(user.firstName || user.firstname || "");
-        setLastName(user.lastName || user.lastname || "");
-        setEmail(user.email || "");
+  // Fetch Users
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        setLoading(true);
+        const res = await axios.get(`${api}/api/getUsers`);
+        setUsers(res.data);
         setError(null);
       } catch (err) {
-        console.error("Failed to load user:", err);
-        setError("Could not load user details. Maybe the ID is wrong?");
+        console.error(err);
+        setError("Failed to load users. Please try again.");
       } finally {
-        setPageLoading(false);
+        setLoading(false);
       }
     };
+    fetchUsers();
+  }, []);
 
-    if (id) fetchUser();
-  }, [id]);
+  // Search when user clicks button or presses Enter
+  const handleSearch = () => {
+    setAppliedSearch(searchTerm);
+    setPage(0);
+  };
 
-  const handleUpdate = async (e) => {
-    e.preventDefault();
-    if (!firstName.trim() || !lastName.trim() || !email.trim()) {
-      setError("Please fill in all fields");
-      return;
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") handleSearch();
+  };
+
+  // Processed & Sorted Users
+  const processedUsers = useMemo(() => {
+    let result = users.filter((user) =>
+      `${user.firstName || ""} ${user.lastName || ""} ${user.email || ""}`
+        .toLowerCase()
+        .includes(appliedSearch.toLowerCase())
+    );
+
+    // Sorting
+    switch (sortBy) {
+      case "name-az":
+        result.sort((a, b) => `${a.firstName} ${a.lastName}`.localeCompare(`${b.firstName} ${b.lastName}`));
+        break;
+      case "name-za":
+        result.sort((a, b) => `${b.firstName} ${b.lastName}`.localeCompare(`${a.firstName} ${a.lastName}`));
+        break;
+      case "email-az":
+        result.sort((a, b) => (a.email || "").localeCompare(b.email || ""));
+        break;
+      case "email-za":
+        result.sort((a, b) => (b.email || "").localeCompare(a.email || ""));
+        break;
+      case "newest":
+        result.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+        break;
+      case "oldest":
+        result.sort((a, b) => new Date(a.createdAt || 0) - new Date(b.createdAt || 0));
+        break;
+      default:
+        break;
     }
+    return result;
+  }, [users, appliedSearch, sortBy]);
 
-    setLoading(true);
-    setError(null);
-    setSuccess(false);
+  const paginatedUsers = processedUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 
-    const payload = {
-      firstName,
-      lastName,
-      email,
-      // Add password or other fields here ONLY if your backend expects them
-    };
+  const exportToCSV = () => {
+    const headers = ["First Name", "Last Name", "Email"];
+    const rows = processedUsers.map((u) => [u.firstName || "", u.lastName || "", u.email || ""]);
+    const csvContent = [headers, ...rows].map((row) => row.join(",")).join("\n");
 
+    const blob = new Blob([csvContent], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `users_${new Date().toISOString().slice(0, 10)}.csv`;
+    link.click();
+  };
+
+  const handleDelete = async (id) => {
     try {
-      const url = `${BASE_URL_URL}/auth/edit/${id}`;
-      // Alternative URLs to try if this one fails:
-      // const url = `${BASE_URL}/api/auth/update/${id}`;
-      // const url = `${BASE_URL}/users/${id}`;
-
-      const res = await axios.put(url, payload, {
-        headers: { 
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`
-        }
-      });
-
-      console.log("Update response:", res.data);
-
-      setSuccess(true);
-      setTimeout(() => {
-        navigate(-1); // or navigate("/users") or wherever your list is
-      }, 1800);
+      await axios.delete(`${API_BASE}/api/auth/delete/${id}`);
+      setUsers((prev) => prev.filter((u) => u._id !== id));
+      setDeleteDialog({ open: false, userId: null, userName: "" });
     } catch (err) {
-      console.error("Update failed:", err);
-      const msg = err.response?.data?.message || err.message || "Update failed";
-      setError(msg);
-    } finally {
-      setLoading(false);
+      alert("Failed to delete user");
     }
   };
 
-  if (pageLoading) return <CircularProgress sx={{ mt: 8, display: "block", mx: "auto" }} />;
+  if (loading) {
+    return <CircularProgress sx={{ display: "block", mx: "auto", mt: 10 }} />;
+  }
 
   return (
     <Box
       sx={{
         minHeight: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#f5f5f5",
-        p: 2,
+        backgroundImage: `url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundAttachment: "fixed",
+        position: "relative",
+        "&::before": { content: '""', position: "absolute", inset: 0, bgcolor: "rgba(0,0,0,0.75)" },
       }}
     >
-      <Paper elevation={4} sx={{ p: 4, width: "100%", maxWidth: 420, borderRadius: 3 }}>
-        <Typography variant="h5" gutterBottom fontWeight="bold" align="center">
-          Update User
-        </Typography>
+      <Box sx={{ position: "relative", zIndex: 2, p: { xs: 2, md: 4 } }}>
+        <Container maxWidth="xl">
+          {/* Header */}
+          <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 4, flexWrap: "wrap", gap: 2 }}>
+            <Typography variant="h4" fontWeight="bold" color="white">
+              All Registered Users
+            </Typography>
 
-        {error && (
-          <Alert severity="error" sx={{ mb: 2 }}>
-            {error}
-          </Alert>
-        )}
+            <Stack direction="row" spacing={2}>
+              <Button variant="contained" startIcon={<DownloadIcon />} onClick={exportToCSV}>
+                Export CSV
+              </Button>
+              <Button variant="contained" startIcon={<AddIcon />} onClick={() => navigate("/register")}>
+                Add New User
+              </Button>
+            </Stack>
+          </Box>
 
-        {success && (
-          <Alert severity="success" sx={{ mb: 2 }}>
-            User updated successfully! Redirecting...
-          </Alert>
-        )}
+          {/* Search + Sort */}
+          <Box sx={{ display: "flex", gap: 2, mb: 4, flexWrap: "wrap" }}>
+            <TextField
+              fullWidth
+              placeholder="Search by name or email..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              onKeyPress={handleKeyPress}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon sx={{ color: "white" }} />
+                  </InputAdornment>
+                ),
+              }}
+              sx={{ flex: 1, minWidth: 280 }}
+            />
 
-        <form onSubmit={handleUpdate}>
-          <TextField
-            label="First Name"
-            fullWidth
-            margin="normal"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            disabled={loading}
-          />
+            <Button variant="contained" onClick={handleSearch} sx={{ px: 5 }}>
+              Search
+            </Button>
 
-          <TextField
-            label="Last Name"
-            fullWidth
-            margin="normal"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            disabled={loading}
-          />
+            <FormControl sx={{ minWidth: 200 }}>
+              <InputLabel>Sort By</InputLabel>
+              <Select value={sortBy} label="Sort By" onChange={(e) => setSortBy(e.target.value)}>
+                <MenuItem value="newest">Newest First</MenuItem>
+                <MenuItem value="oldest">Oldest First</MenuItem>
+                <MenuItem value="name-az">Name A–Z</MenuItem>
+                <MenuItem value="name-za">Name Z–A</MenuItem>
+                <MenuItem value="email-az">Email A–Z</MenuItem>
+                <MenuItem value="email-za">Email Z–A</MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
 
-          <TextField
-            label="Email"
-            type="email"
-            fullWidth
-            margin="normal"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            disabled={loading}
-          />
+          {error && <Alert severity="error" sx={{ mb: 3 }}>{error}</Alert>}
 
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            fullWidth
-            sx={{ mt: 3, py: 1.5 }}
-            disabled={loading}
-          >
-            {loading ? <CircularProgress size={24} color="inherit" /> : "Save Changes"}
+          <Paper elevation={8} sx={{ borderRadius: 3, overflow: "hidden" }}>
+            <TableContainer>
+              <Table>
+                <TableHead sx={{ bgcolor: "#0d47a1" }}>
+                  <TableRow>
+                    <TableCell sx={{ color: "white", fontWeight: "bold" }}>Avatar</TableCell>
+                    <TableCell sx={{ color: "white", fontWeight: "bold" }}>Full Name</TableCell>
+                    <TableCell sx={{ color: "white", fontWeight: "bold" }}>Email</TableCell>
+                    <TableCell sx={{ color: "white", fontWeight: "bold" }}>Actions</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {paginatedUsers.map((user) => (
+                    <TableRow key={user._id} hover>
+                      <TableCell>
+                        <Avatar sx={{ bgcolor: "#1976d2" }}>
+                          {user.firstName?.[0]}{user.lastName?.[0]}
+                        </Avatar>
+                      </TableCell>
+                      <TableCell>{user.firstName} {user.lastName}</TableCell>
+                      <TableCell>{user.email}</TableCell>
+                      <TableCell>
+                        <Stack direction="row" spacing={1}>
+                          <IconButton color="info" onClick={() => setViewUser(user)}>
+                            <VisibilityIcon />
+                          </IconButton>
+                          <IconButton color="primary" onClick={() => navigate(`/users/edit/${user._id}`)}>
+                            <EditIcon />
+                          </IconButton>
+                          <IconButton color="error" onClick={() => setDeleteDialog({ open: true, userId: user._id, userName: `${user.firstName} ${user.lastName}` })}>
+                            <DeleteIcon />
+                          </IconButton>
+                        </Stack>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+
+            <TablePagination
+              component="div"
+              count={processedUsers.length}
+              page={page}
+              onPageChange={(e, newPage) => setPage(newPage)}
+              rowsPerPage={rowsPerPage}
+              onRowsPerPageChange={(e) => { setRowsPerPage(parseInt(e.target.value, 10)); setPage(0); }}
+              rowsPerPageOptions={[5, 10, 25, 50]}
+            />
+          </Paper>
+        </Container>
+      </Box>
+
+      {/* View User Modal */}
+      {viewUser && (
+        <Dialog open onClose={() => setViewUser(null)} maxWidth="sm" fullWidth>
+          <DialogTitle>User Details</DialogTitle>
+          <DialogContent>
+            <Typography><strong>Name:</strong> {viewUser.firstName} {viewUser.lastName}</Typography>
+            <Typography><strong>Email:</strong> {viewUser.email}</Typography>
+            {viewUser.phoneNumber && <Typography><strong>Phone:</strong> {viewUser.phoneNumber}</Typography>}
+            {viewUser.address && <Typography><strong>Address:</strong> {viewUser.address}</Typography>}
+            {viewUser.country && <Typography><strong>Country:</strong> {viewUser.country}</Typography>}
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => setViewUser(null)}>Close</Button>
+          </DialogActions>
+        </Dialog>
+      )}
+
+      {/* Delete Confirmation */}
+      <Dialog open={deleteDialog.open} onClose={() => setDeleteDialog({ open: false, userId: null, userName: "" })}>
+        <DialogTitle>Confirm Delete</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to delete <strong>{deleteDialog.userName}</strong>?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setDeleteDialog({ open: false, userId: null, userName: "" })}>Cancel</Button>
+          <Button color="error" variant="contained" onClick={() => handleDelete(deleteDialog.userId)}>
+            Delete
           </Button>
-
-          <Button
-            variant="outlined"
-            fullWidth
-            sx={{ mt: 1.5 }}
-            onClick={() => navigate(-1)}
-            disabled={loading}
-          >
-            Cancel
-          </Button>
-        </form>
-      </Paper>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };
 
-export default UpdateUser;
+export default UsersList;

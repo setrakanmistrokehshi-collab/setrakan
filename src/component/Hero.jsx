@@ -31,7 +31,7 @@ const Hero = () => {
             <div className="hero-overlay">
               <h1>Welcome to SETRAKAN</h1>
               <h2>Turning Your Business Ideas into Powerful Working Systems</h2>
-              <button>Time to Build</button>
+              <button className="hero-button" onClick={() => window.location.href = "/Services"}>Time to Build</button>
             </div>
           </div>
         </SwiperSlide>
@@ -47,7 +47,7 @@ const Hero = () => {
             <div className="hero-overlay">
               <h1>Welcome to SETRAKAN</h1>
               <h2>Tech Solutions Built for Business Growth & Innovation</h2>
-              <button>Time to Build</button>
+              <button className="hero-button" onClick={() => window.location.href = "/Services"}>Time to Build</button>
             </div>
           </div>
         </SwiperSlide>
@@ -63,7 +63,7 @@ const Hero = () => {
             <div className="hero-overlay">
               <h1>Welcome to SETRAKAN</h1>
               <h2>From Vision to Deployed Solution – We Make It Happen</h2>
-              <button>Time to Build</button>
+              <button className="hero-button" onClick={() => window.location.href = "/Services"}>Time to Build</button>
             </div>
           </div>
         </SwiperSlide>
@@ -79,7 +79,7 @@ const Hero = () => {
             <div className="hero-overlay">
               <h1>Welcome to SETRAKAN</h1>
               <h2>Custom Tech Hubs for Ideas That Scale into Systems</h2>
-              <button>Time to Build</button>
+              <button className="hero-button" onClick={() => window.location.href = "/Services"}>Time to Build</button>
             </div>
           </div>
         </SwiperSlide>

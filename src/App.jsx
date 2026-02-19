@@ -12,7 +12,6 @@ import Product from "./pages/product.jsx";
 import Footer from "./component/Footer.jsx"
 import Services from "./pages/Services.jsx"
 
-
 const App = () => {
   return (
     <>
@@ -20,13 +19,14 @@ const App = () => {
    
      <Routes>
 
-      <Route path ="/" element ={<HomePage/>}/>
+      <Route path ="/home" element ={<HomePage/>}/>
       <Route path = "/About" element= {<About/>}/>
-       <Route path ="/Login" element={<Loginpage />} />
+       <Route path ="/login" element={<Loginpage />} />
        <Route path ="/Services" element={<Services />} />
+      
         <Route path ="/register" element={<Registration />} />
-        <Route path ="/Users" element={<UserList />} />
-         <Route path ="/GetUser/:id" element={<GetUser />} />
+        <Route path ="/users" element={<UserList />} />
+         <Route path ="/getUsers/:id" element={<GetUser />} />
           <Route path ="/EditUser/edit/:id" element={<EditUser />} />
            <Route path ="/Product" element={<Product/>} />
         

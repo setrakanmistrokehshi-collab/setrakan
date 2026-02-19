@@ -199,7 +199,7 @@ export default function Product() {
         <Box sx={{ maxWidth: 1280, mx: "auto", px: 3, py: 3 }}>
           <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2 }}>
             <Button startIcon={<ArrowBackIcon />} variant="text"
-              onClick={() => navigate("/Home")}>
+              onClick={() => navigate("/home")}>
             Back to Home
           </Button>
         </Box>
