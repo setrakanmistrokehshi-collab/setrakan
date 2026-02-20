@@ -11,6 +11,12 @@ import EditUser from "./pages/EditUser"
 import Product from "./pages/product.jsx";
 import Footer from "./component/Footer.jsx"
 import Services from "./pages/Services.jsx"
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';   // solid icons
+ import { far } from '@fortawesome/free-regular-svg-icons';
+ import { fab } from '@fortawesome/free-brands-svg-icons';
+
+library.add(fas, far, fab); // add more if needed
 
 const App = () => {
   return (
