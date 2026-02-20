@@ -15,27 +15,30 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';   // solid icons
  import { far } from '@fortawesome/free-regular-svg-icons';
  import { fab } from '@fortawesome/free-brands-svg-icons';
+import RootLayout from './layout/RootLayout.jsx'
+
 
 library.add(fas, far, fab); // add more if needed
 
 const App = () => {
   return (
     <>
-       <Nav/>
+       
    
      <Routes>
-
-      <Route path ="/home" element ={<HomePage/>}/>
+      <Route path='/' element={<RootLayout/>}>
+        <Route index element ={<HomePage/>}/>
       <Route path = "/About" element= {<About/>}/>
        <Route path ="/login" element={<Loginpage />} />
        <Route path ="/Services" element={<Services />} />
-      
         <Route path ="/register" element={<Registration />} />
         <Route path ="/users" element={<UserList />} />
          <Route path ="/getUsers/:id" element={<GetUser />} />
           <Route path ="/EditUser/edit/:id" element={<EditUser />} />
            <Route path ="/Product" element={<Product/>} />
         
+      </Route>
+      
       </Routes> 
       <Footer/>
    

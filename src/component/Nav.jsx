@@ -20,7 +20,7 @@ export default function Navbar() {
 
         {/* Desktop nav (hidden on mobile) */}
         <nav className="nav-links desktop-nav">
-          <Link to="/home" onClick={closeMenu}>Home</Link>
+          <Link to="/" onClick={closeMenu}>Home</Link>
           <Link to="/about" onClick={closeMenu}>About</Link>
           <Link to="/services" onClick={closeMenu}>Services</Link>
           {/* <Link to="/contact" onClick={closeMenu}>Contact</Link> */}
@@ -46,7 +46,7 @@ export default function Navbar() {
 
         {/* Mobile menu panel – full overlay */}
         <nav className={`nav-links mobile-menu ${isOpen ? 'active' : ''}`}>
-          <Link to="/home" onClick={closeMenu}>Home</Link>
+          <Link to="/" onClick={closeMenu}>Home</Link>
           <Link to="/about" onClick={closeMenu}>About</Link>
           <Link to="/services" onClick={closeMenu}>Services</Link>
           {/* <Link to="/contact" onClick={closeMenu}>Contact</Link> */}
