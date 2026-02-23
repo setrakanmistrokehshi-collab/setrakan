@@ -2,6 +2,7 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
+import { useNavigate } from "react-router-dom";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -9,6 +10,8 @@ import "swiper/css/pagination";
 import "./Hero.css";
 
 const Hero = () => {
+
+  const navigate = useNavigate();
   return (
     <div className="hero-wrapper">
       <Swiper
@@ -31,7 +34,7 @@ const Hero = () => {
             <div className="hero-overlay">
               <h1>Welcome to SETRAKAN</h1>
               <h2>Turning Your Business Ideas into Powerful Working Systems</h2>
-              <button className="hero-button" onClick={() => window.location.href = "/Services"}>Time to Build</button>
+              <button className="hero-button" onClick={() => navigate("/Services") }>Time to Build</button>
             </div>
           </div>
         </SwiperSlide>
