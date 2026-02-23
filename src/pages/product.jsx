@@ -148,8 +148,8 @@ export default function Product() {
 
 
   // Replace with your real contacts
-  const whatsappNumber = "+2348136764568";
-  const email = "setrakanmistrokehshi@gmail.com";
+  const whatsappNumber = import.meta.env.VITE_WHATSAPP_URL ; // e.g. "1234567890"
+  const email = import.meta.env.VITE_EMAIL_URL ;
 
   const filteredServices = useMemo(() => {
     return allServices.filter((service) => {
@@ -178,11 +178,11 @@ export default function Product() {
 
   const handleBook = (serviceName) => {
     const message = encodeURIComponent(`Hi, I'm interested in booking: ${serviceName}`);
-    window.open(`https://wa.me/${whatsappNumber}?text=${message}`, "_blank");
+    window.open(`https://wa.me/${whatsappNumber}?text=${message}`, );
   };
 
   const handleContact = () => {
-    window.open(`mailto:${email}?subject=Inquiry%20about%20Setrakan%20Services`, "_blank");
+    window.open(`mailto:${email}?subject=Inquiry%20about%20Setrakan%20Services`, );
   };
 
   const resetFilters = () => {

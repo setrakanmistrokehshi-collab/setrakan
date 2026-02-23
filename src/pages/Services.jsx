@@ -107,10 +107,10 @@ export default function WebDevServices() {
           </Typography>
 
           <Stack direction={{ xs: "column", sm: "row" }} spacing={3} justifyContent="center">
-            <Button variant="contained" size="large" startIcon={<WhatsAppIcon />} onClick={() => handleContact("whatsapp")} sx={{ bgcolor: "#25D366" }}>
+            <Button variant="contained" size="large" startIcon={<WhatsAppIcon />} onClick={() => handleContact(import.meta.env.VITE_WHATSAPP_URL)} sx={{ bgcolor: "#25D366" }}>
               Get Quote on WhatsApp
             </Button>
-            <Button variant="outlined" size="large" startIcon={<EmailIcon />} onClick={() => handleContact("email")} sx={{ borderColor: "white", color: "white" }}>
+            <Button variant="outlined" size="large" startIcon={<EmailIcon />} onClick={() => handleContact(import.meta.env.VITE_EMAIL_URL)} sx={{ borderColor: "white", color: "white" }}>
               Email Us
             </Button>
           </Stack>
