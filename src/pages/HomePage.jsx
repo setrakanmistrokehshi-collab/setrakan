@@ -9,7 +9,7 @@ const HomePage = () => {
 
     <Hero/>
     <HomeSlider />
-    <Home/> 
+    {/* <Home/>  */}
     <Services/> 
     </>
   )

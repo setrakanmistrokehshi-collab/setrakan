@@ -65,7 +65,7 @@ const About = () => {
               variant="contained"
               size="large"
               color="primary"
-              onClick={() => navigate("/contact")} // or your contact/register page
+              onClick={() => navigate("/product")} // or your contact/register page
               sx={{
                 py: 1.5,
                 px: 5,

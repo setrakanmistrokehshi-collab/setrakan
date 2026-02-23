@@ -8,8 +8,6 @@ const RootLayout = () => {
     <div>
         
         <Nav/>
-        <Hero/>
-        
         <Outlet/>
     </div>
   )

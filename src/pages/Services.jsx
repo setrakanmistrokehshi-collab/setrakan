@@ -94,7 +94,7 @@ export default function WebDevServices() {
       </Container>
 
       {/* Hero */}
-      <Box sx={{ background: "linear-gradient(135deg, #0d47a1 0%, #1976d2 100%)", color: "white", py: { xs: 10, md: 14 }, textAlign: "center" }}>
+      <Box sx={{ background: "linear-gradient(135deg, #1fccb5 0%, #1976d2 100%)", color: "white", py: { xs: 10, md: 14 }, textAlign: "center" }}>
         <Container maxWidth="lg">
           <Typography variant="h2" fontWeight="bold" sx={{ fontSize: { xs: "2.4rem", md: "3.8rem" } }}>
             Professional Website Development
