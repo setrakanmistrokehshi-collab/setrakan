@@ -60,6 +60,8 @@ const Footer = () => {
           >
             <FontAwesomeIcon icon={faSkype} />
           </a>
+
+        
         </div>
 
         {/* Optional: add copyright or other info */}

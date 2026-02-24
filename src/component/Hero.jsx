@@ -43,7 +43,7 @@ const Hero = () => {
         <SwiperSlide>
           <div className="hero-slide">
             <img
-              src="https://thumbs.dreamstime.com/b/programmers-silhouettes-coding-computers-together-spacious-coworking-zone-programmers-silhouettes-coding-computers-sitting-408454027.jpg"
+              src="https://www.webpronews.com/wp-content/uploads/2026/02/article-9296-1770261429.jpeg"
               alt="Tech team collaborating in a bright modern workspace"
               className="hero-image"
             />
@@ -75,7 +75,23 @@ const Hero = () => {
         <SwiperSlide>
           <div className="hero-slide">
             <img
-              src="https://thumbs.dreamstime.com/b/custom-ai-model-380157252.jpg"
+              src="https://cdn.prod.website-files.com/65df96b71feda507c45bb7f0/68ac6a9012b62fba07f47e10_DSC01223.jpg"
+              alt="Business team in VR/AR tech meeting discussing solutions"
+              className="hero-image"
+            />
+            <div className="hero-overlay">
+              <h1>Welcome to SETRAKAN</h1>
+              <h2>Custom Tech Hubs for Ideas That Scale into Systems</h2>
+              <button className="hero-button" onClick={() => window.location.href = "/Services"}>Time to Build</button>
+            </div>
+          </div>
+            </SwiperSlide>
+          
+
+            <SwiperSlide>
+          <div className="hero-slide">
+            <img
+              src="https://cdn.prod.website-files.com/65df96b71feda507c45bb7f0/68ac6a9012b62fba07f47e10_DSC01223.jpg"
               alt="Business team in VR/AR tech meeting discussing solutions"
               className="hero-image"
             />

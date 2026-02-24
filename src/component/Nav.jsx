@@ -29,7 +29,7 @@ export default function Navbar() {
           <Link to="/login" onClick={closeMenu}>Login</Link>
           {/* <Link to="/users" onClick={closeMenu}>userList</Link> */}
           {/* <Link to="/getUsers/:id" onClick={closeMenu}>GetUser</Link> */}
-          <Link to="/EditUser/edit/:id" onClick={closeMenu}>EditUser</Link>
+          {/* <Link to="/EditUser/edit/:id" onClick={closeMenu}>EditUser</Link> */}
           <Link to="/product" onClick={closeMenu}>Products</Link>
         </nav>
 
@@ -55,7 +55,7 @@ export default function Navbar() {
           <Link to="/login" onClick={closeMenu} style={{ color: "blue" }}>Login</Link>
           {/* <Link to="/users" onClick={closeMenu}>userList</Link> */}
           {/* <Link to="/getUsers/:id" onClick={closeMenu}>GetUser</Link> */}
-          <Link to="/EditUser/edit/:id" onClick={closeMenu} style={{ color: "blue" }}>EditUser</Link>
+          {/* <Link to="/EditUser/edit/:id" onClick={closeMenu} style={{ color: "blue" }}>EditUser</Link> */}
           <Link to="/product" onClick={closeMenu} style={{ color: "blue" }}>Products</Link>
         </nav>
       </div>
