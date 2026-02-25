@@ -65,6 +65,7 @@ const Login = () => {
         alignItems: "center",
         backgroundImage: `url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=1200')`,
         backgroundSize: "cover",
+        
         p: 2,
       }}
     >
@@ -74,8 +75,8 @@ const Login = () => {
         transition={{ duration: 0.6 }}
         style={{ width: "100%", maxWidth: 400 }}
       >
-        
-        <Paper sx={{ p: 4, borderRadius: 3, textAlign: "center" , backgroundColor: "rgba(145, 28, 28, 0.9) , "}} elevation={10}>
+       <Box sx={{backgroundColor: "rgba(102, 79, 145, 0.8)", p: 3, borderRadius: 2, color: "#fff" }}> 
+
           <Box
           
             sx={{
@@ -83,7 +84,7 @@ const Login = () => {
               width: 70,
               height: 70,
               borderRadius: "50%",
-              background: "#1bb6b6",
+              background: "#b6a71b",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -94,7 +95,7 @@ const Login = () => {
             <LockOutlined sx={{ color: "#777373", fontSize: 36 }} />
           </Box>
 
-          <Typography variant="h5" mb={2} color="primary">
+          <Typography variant="h5" mb={2} color="primary" textalign="center">
             {error ? error : "Welcome Back"}
           </Typography>
 
@@ -102,6 +103,7 @@ const Login = () => {
           <form onSubmit={handleLogin}>
             <TextField
               fullWidth
+              textAlign="left"
               label="Email"
               type="email"
               value={email}
@@ -144,14 +146,17 @@ const Login = () => {
             </Button>
           </form>
 
-          <Typography mt={3} variant="body2">
+          <Typography mt={3} variant="body2" textAlign="center">
             Don’t have an account?{" "}
             <Button component={Link} to="/register">
               Sign up
             </Button>
           </Typography>
-        </Paper>
+           
+          </Box>
+       
       </motion.div>
+      
     </Box>
   );
 };
