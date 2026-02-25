@@ -95,7 +95,7 @@ const Login = () => {
             <LockOutlined sx={{ color: "#777373", fontSize: 36 }} />
           </Box>
 
-          <Typography variant="h5" mb={2} color="primary" textalign="center">
+          <Typography variant="h5" mb={2} color="primary" textAlign="center">
             {error ? error : "Welcome Back"}
           </Typography>
 
